@@ -21,8 +21,13 @@ passport.use(new GitHubStrategy({
 
 //getting id from user profile
 function extractingID(){
+    //initialising passport
     app.use(passport.initialize());
+    
+    //for persisting the session
     app.use(passport.session());
+
+    //passing user profile into session
     passport.serializeUser(function (user,cb) {
       cb(null, user.id)
     });
@@ -34,10 +39,7 @@ function extractingID(){
 //authorisation
 function authorisation(){
     app.get('/auth/github', passport.authenticate('github'));
-    app.get(
-        '/auth/github/callback',
-         passport.authenticate('github', { failureRedirect: '/login' }),
-         function(req, res){
+    app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),function(req, res){
         // Successful authentication, redirect home.
         res.redirect('/');
        }

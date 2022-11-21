@@ -16,18 +16,17 @@ extractingID();
 //authorisation
 authorisation();
 
-
 //Routes
 app.get('/', isAuth, (req, res) =>{
     console.log(req.user); // id which is logged
-    res.sendFile( __dirname + "" + '/dashboard.html');
+    res.sendFile( __dirname + '/dashboard.html');
 });
 
 app.get('/login', (req, res) =>{
     if(req.user){
         return res.redirect('/')
     }
-   res.sendFile(__dirname + "" + '/login.html');
+   res.sendFile(__dirname + '/login.html');
 });
 
 app.get('/logout', (req, res) =>{
